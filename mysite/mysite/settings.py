@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#django가 생각하는 base directory
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,20 +27,25 @@ SECRET_KEY = 'habn4rrles&&chtya9ssi=0)78q^5%nj&r-%16m@yv@+%1j+oi'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+#나중에 install할 때 그 domain name으로 접근 가능. 지금은 아무거나 접근 가능
 
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [ #기본 앱이 등록돼잇으며 내가 앱을 등록해야한다. ex)polls앱 추가!
+    #여기서 기본적으로 필요한 데이터베이스를 넣어야하는 앱을 만들었기 때문에 이거에 대한 migration을 만들어야한다.
+    #근데 이미 만들어져 있음 python manage.py migrate하면 admin,auth등이 migrate 했다는 걸 볼 수 있다.
+    'polls.apps.PollsConfig',
     'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
+    'django.contrib.auth', #인지하는거
+    'django.contrib.contenttypes', #contenttype 알아내는 것
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = [#install 될 middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,12 +55,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'mysite.urls' #mysite.urls에 존재
 
-TEMPLATES = [
+TEMPLATES = [ 
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [],#템블릿 만들면 어디에 위치시킬지 여기다 적어 넣음
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,10 +79,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+DATABASES = { #현재 default됨
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 
+        # db는 base_dir밑에 db.sqlite3이름으로 있다.
+        # 슬래쉬나 백 슬래쉬보단 os.path.join으로 써야 플랫폼에 independent하게 diretory path를 쓸 수 있는 방법.
+        # 리눅스일수도 윈도우일수도 다들 컴퓨터마다 다르기때문
+        #뿐만 아니라 대형 데이터베이스(오라클 등) user, password, host등이 더 필요하다. 따라서 필요할 때 여기다 포함시켜야 함.
     }
 }
 
@@ -105,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul' #우리는 서울!
 
 USE_I18N = True
 
