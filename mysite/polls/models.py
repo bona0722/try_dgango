@@ -1,5 +1,4 @@
 import datetime
-
 from django.db import models
 from django.utils import timezone
 
@@ -16,15 +15,18 @@ class Question(models.Model):
         return self.question_text #return 해주면 더 보기 좋게 나옴
 
     def was_published_recently(self): #최근에 published 된거냐. 현재로부터 timedelta(하루, 24시간)전보다 크면, 하루 이내에 발간된 날짜라면 최근꺼 
+        now = timezone.now()
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1) 
 
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200) #설문 문항
-    votes = models.IntegerField(default=0) #이 선택문항에 대해서 사람들이 누가 몇 표를 찍었나. 많이 찍으면 응답
+    votes = models.IntegerField(default=0)
     
     def __str__(self):
-        return self.question_text #return 해주면 더 보기 좋게 나옴
+        return self.choice_text 
+    #return 해주면 더 보기 좋게 나옴
 #app에 등록되면서 question, choice table이 만들어짐.
 # python manage.py makemigrations polls < migrations가 만들어짐 
+
