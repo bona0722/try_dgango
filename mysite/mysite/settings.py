@@ -60,8 +60,8 @@ ROOT_URLCONF = 'mysite.urls' #mysite.urls에 존재
 TEMPLATES = [ 
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],#템블릿 만들면 어디에 위치시킬지 여기다 적어 넣음
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],#템블릿 만들면 어디에 위치시킬지 여기다 적어 넣음.여기에 추가한 템플릿을 검색하라
+        'APP_DIRS': True, #앱 dir에서도 검색할거냐? polls밑에 디렉토리 만들기
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
